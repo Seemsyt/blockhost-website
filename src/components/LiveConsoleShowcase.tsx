@@ -4,6 +4,8 @@ import { Terminal, Send, ShieldAlert, Sparkles, RefreshCw, Bell, Search, Copy, C
 import { ConsoleLogLine } from '../types';
 import { soundManager } from '../utils/audio';
 import { ScrollReveal } from './ScrollReveal';
+import { useAuth } from '../context/AuthContext';
+import { apiFetch, API_BASE_URL, getAuthToken } from '../utils/api';
 
 const DEMO_LOGS: ConsoleLogLine[] = [
   { id: '1', timestamp: '14:30:10', level: 'SYSTEM', message: '[BlockHost Bridge] WebSocket connected securely on TLS v1.3 (Latency: 11ms)' },
@@ -26,30 +28,68 @@ export const LiveConsoleShowcase: React.FC = () => {
     logContainerRef.current?.scrollTo({ top: logContainerRef.current.scrollHeight, behavior: 'smooth' });
   }, [logs]);
 
-  const sendCommand = (cmdText?: string) => {
+  const { user, isAuthenticated } = useAuth();
+  const [ws, setWs] = useState<WebSocket | null>(null);
+
+  useEffect(() => {
+    let activeWs: WebSocket | null = null;
+    
+    const connectWs = async () => {
+      if (!isAuthenticated) return;
+      try {
+        const servers = await apiFetch('/servers');
+        if (!servers || servers.length === 0) return;
+        const serverId = servers[0].id;
+        
+        const wsUrl = API_BASE_URL.replace('http', 'ws') + `/servers/${serverId}/console/ws?token=${getAuthToken()}`;
+        const newWs = new WebSocket(wsUrl);
+        
+        newWs.onmessage = (event) => {
+          setLogs(prev => {
+            const newLogs = [...prev, { id: Date.now().toString() + Math.random(), timestamp: new Date().toLocaleTimeString(), level: 'INFO', message: event.data }];
+            return newLogs.slice(-100);
+          });
+        };
+        
+        newWs.onopen = () => {
+          setLogs(prev => [...prev, { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'SYSTEM', message: '[BlockHost Bridge] WebSocket connected securely.' }]);
+        };
+
+        newWs.onclose = () => {
+          setLogs(prev => [...prev, { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'WARN', message: '[BlockHost Bridge] Connection closed.' }]);
+        };
+
+        setWs(newWs);
+        activeWs = newWs;
+      } catch (err) {
+        console.error("Failed to connect websocket", err);
+      }
+    };
+    
+    connectWs();
+    
+    return () => {
+      if (activeWs) activeWs.close();
+    };
+  }, [isAuthenticated]);
+  
+  const sendCommand = async (cmdText?: string) => {
     const text = (cmdText || inputVal).trim();
     if (!text) return;
-
-    soundManager.playCommandSuccess();
-    const time = new Date().toLocaleTimeString();
-
-    const newLogs: ConsoleLogLine[] = [
-      ...logs,
-      { id: Date.now().toString(), timestamp: time, level: 'SYSTEM', message: `> ${text}` }
-    ];
-
-    if (text.startsWith('/op')) {
-      newLogs.push({ id: (Date.now() + 1).toString(), timestamp: time, level: 'INFO', message: `[Server] Made ${text.split(' ')[1] || 'Player'} a server operator.` });
-    } else if (text.startsWith('/whitelist')) {
-      newLogs.push({ id: (Date.now() + 1).toString(), timestamp: time, level: 'INFO', message: `[Whitelist] Whitelist enabled. Only authorized gamertags may connect.` });
-    } else if (text.startsWith('/kick')) {
-      newLogs.push({ id: (Date.now() + 1).toString(), timestamp: time, level: 'WARN', message: `[Server] Player kicked by mobile admin.` });
-    } else {
-      newLogs.push({ id: (Date.now() + 1).toString(), timestamp: time, level: 'INFO', message: `[Command Result] Command executed successfully.` });
+    
+    if (!isAuthenticated) {
+      alert("Please login to use the console.");
+      return;
     }
 
-    setLogs(newLogs);
-    setInputVal('');
+    soundManager.playCommandSuccess();
+    
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(text.replace(/^\//, ''));
+      setInputVal('');
+    } else {
+      setLogs(prev => [...prev, { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'WARN', message: 'WebSocket is not connected.' }]);
+    }
   };
 
   const copyLogHistory = () => {

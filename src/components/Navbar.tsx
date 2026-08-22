@@ -2,23 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { 
   Menu, X, Smartphone, Zap, Sparkles, Terminal, 
-  Layers, HardDrive, Download, ChevronRight, Shield, Globe, Volume2, VolumeX 
+  Layers, HardDrive, Download, ChevronRight, Shield, Globe, Volume2, VolumeX, User, LogOut 
 } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { useAuth } from '../context/AuthContext';
 
 interface Props {
   onOpenDeployWizard: () => void;
   onOpenDownloadModal: () => void;
+  onOpenAuthModal: () => void;
 }
 
 export const Navbar: React.FC<Props> = ({ 
   onOpenDeployWizard, 
-  onOpenDownloadModal 
+  onOpenDownloadModal,
+  onOpenAuthModal
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(soundManager.isMuted());
   const location = useLocation();
+  const { user, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -117,6 +121,47 @@ export const Navbar: React.FC<Props> = ({
             {isMuted ? <VolumeX className="w-4 h-4 text-slate-500" /> : <Volume2 className="w-4 h-4 text-emerald-400" />}
           </button>
 
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <Link 
+                to="/dashboard"
+                onClick={() => soundManager.playClick()}
+                className="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 font-bold font-mono-code text-xs transition-colors"
+              >
+                Go to Dashboard
+              </Link>
+              <div className="h-4 w-px bg-slate-800 mx-1"></div>
+              <span className="text-xs font-bold text-slate-300 flex items-center gap-1">
+                <User className="w-3.5 h-3.5 text-emerald-400" />
+                {user?.nickname}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playPop();
+                  logout();
+                }}
+                className="p-2 rounded-xl bg-slate-900/80 hover:bg-red-500/20 text-slate-400 hover:text-red-400 transition-colors cursor-pointer"
+                title="Logout"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              id="nav-login-btn"
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                onOpenAuthModal();
+              }}
+              className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-mono-code text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <User className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Login</span>
+            </button>
+          )}
+
           {/* Download App CTA */}
           <button
             id="nav-download-app-btn"
@@ -137,7 +182,11 @@ export const Navbar: React.FC<Props> = ({
             type="button"
             onClick={() => {
               soundManager.playLevelUp();
-              onOpenDeployWizard();
+              if (!isAuthenticated) {
+                onOpenAuthModal();
+              } else {
+                onOpenDeployWizard();
+              }
             }}
             className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-mono-code text-xs font-extrabold flex items-center gap-1.5 shadow-lg shadow-emerald-500/25 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
@@ -193,6 +242,21 @@ export const Navbar: React.FC<Props> = ({
               </NavLink>
             ))}
           </div>
+
+          {isAuthenticated && (
+            <div className="pt-3 border-t border-slate-800">
+              <Link
+                to="/dashboard"
+                onClick={() => {
+                  soundManager.playClick();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold font-mono-code text-xs text-center flex items-center justify-center gap-2 cursor-pointer"
+              >
+                Go to Dashboard
+              </Link>
+            </div>
+          )}
 
           <div className="pt-3 border-t border-slate-800 flex flex-col gap-2">
             <button

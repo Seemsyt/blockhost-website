@@ -7,6 +7,8 @@ import {
 import { ModItem, MinecraftFlavor } from '../types';
 import { soundManager } from '../utils/audio';
 import { ScrollReveal } from './ScrollReveal';
+import { useAuth } from '../context/AuthContext';
+import { apiFetch } from '../utils/api';
 
 const EXTENDED_MODS: ModItem[] = [
   {
@@ -149,21 +151,47 @@ export const ModsBrowserSection: React.FC<Props> = ({ onOpenDeployWizard }) => {
 
   const categories = ['All', 'Performance', 'Essentials', 'World', 'Tech', 'Economy'];
 
-  const toggleInstall = (modId: string) => {
+  const { user, isAuthenticated } = useAuth();
+  
+  const toggleInstall = async (modId: string) => {
     soundManager.playPop();
+    if (!isAuthenticated) {
+      alert("Please login to install mods.");
+      return;
+    }
+    
     setInstallingId(modId);
 
-    setTimeout(() => {
+    try {
+      // Get the user's first server
+      const servers = await apiFetch('/servers');
+      if (!servers || servers.length === 0) {
+        alert("You don't have any servers! Deploy one first.");
+        onOpenDeployWizard();
+        setInstallingId(null);
+        return;
+      }
+      const serverId = servers[0].id;
+
+      // Install the mod
+      await apiFetch(`/servers/${serverId}/mods/install`, {
+        method: 'POST',
+        body: JSON.stringify({ modrinth_project_id: modId })
+      });
+
+      soundManager.playLevelUp();
       setModList(prev => prev.map(m => {
         if (m.id === modId) {
-          const next = !m.installed;
-          if (next) soundManager.playLevelUp();
-          return { ...m, installed: next };
+          return { ...m, installed: true };
         }
         return m;
       }));
+    } catch (err: any) {
+      console.error(err);
+      alert(`Failed to install mod: ${err.message}`);
+    } finally {
       setInstallingId(null);
-    }, 600);
+    }
   };
 
   const filteredMods = modList.filter(m => {

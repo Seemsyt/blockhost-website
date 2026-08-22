@@ -7,6 +7,7 @@ import {
 import { MinecraftFlavor } from '../types';
 import { soundManager } from '../utils/audio';
 import confetti from 'canvas-confetti';
+import { apiFetch } from '../utils/api';
 
 interface Props {
   isOpen: boolean;
@@ -52,36 +53,75 @@ export const ServerDeployWizardModal: React.FC<Props> = ({
     }
   }, [isOpen]);
 
-  const startDeployment = () => {
+  const startDeployment = async () => {
     soundManager.playClick();
     setStep(4);
     setIsProvisioning(true);
     setProvisionProgress(10);
-    setProvisionStatusText('Provisioning dedicated AMD Ryzen 9 core...');
+    setProvisionStatusText('Sending deployment request...');
 
-    setTimeout(() => {
-      setProvisionProgress(40);
-      setProvisionStatusText(`Downloading ${flavor.toUpperCase()} ${mcVersion} build...`);
-    }, 800);
+    try {
+      const realMcVersion = mcVersion.split(' ')[0];
+      const payload = {
+        world_name: serverName || 'My Server',
+        flavor,
+        mc_version: realMcVersion,
+        config: {
+          max_players: 20,
+          gamemode: 'survival',
+          difficulty: 'normal',
+          bedrock_version: flavor === 'bedrock' ? 'latest' : undefined
+        }
+      };
 
-    setTimeout(() => {
-      setProvisionProgress(75);
-      setProvisionStatusText('Configuring Bedrock UDP crossplay port 19132...');
-    }, 1600);
-
-    setTimeout(() => {
-      setProvisionProgress(100);
-      setIsProvisioning(false);
-      const randomPort = Math.floor(25565 + Math.random() * 500);
-      const generatedIp = `${serverName.toLowerCase().replace(/[^a-z0-9]/g, '-') || 'myserver'}.blockhost.gg:${randomPort}`;
-      setDeployedIp(generatedIp);
-      soundManager.playLevelUp();
-      confetti({
-        particleCount: 70,
-        spread: 80,
-        origin: { y: 0.5 }
+      const serverRes = await apiFetch('/servers', {
+        method: 'POST',
+        body: JSON.stringify(payload)
       });
-    }, 2400);
+      const serverId = serverRes.id;
+
+      setProvisionProgress(40);
+      setProvisionStatusText('Provisioning server resources...');
+
+      // Poll until state is running
+      let isRunning = false;
+      let finalIp = '';
+      
+      for (let i = 0; i < 30; i++) { // Poll for up to ~60s
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        try {
+          const statusRes = await apiFetch(`/servers/${serverId}`);
+          if (statusRes.state === 'running') {
+            isRunning = true;
+            finalIp = statusRes.shareable_address || `${statusRes.minecraft_host}:${statusRes.minecraft_port}`;
+            break;
+          }
+        } catch (e) {
+          console.error("Polling error", e);
+        }
+      }
+
+      if (isRunning) {
+        setProvisionProgress(100);
+        setIsProvisioning(false);
+        setDeployedIp(finalIp);
+        soundManager.playLevelUp();
+        confetti({
+          particleCount: 70,
+          spread: 80,
+          origin: { y: 0.5 }
+        });
+      } else {
+        setProvisionStatusText('Provisioning taking longer than expected. Check console.');
+        setIsProvisioning(false);
+        setDeployedIp('pending...');
+      }
+
+    } catch (err: any) {
+      console.error(err);
+      setProvisionStatusText(`Error: ${err.message || 'Failed to deploy'}`);
+      setIsProvisioning(false);
+    }
   };
 
   const copyIp = () => {
