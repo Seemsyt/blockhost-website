@@ -1,0 +1,6 @@
+{
+  "name": "BlockHost - Mobile Minecraft Server Hosting",
+  "description": "The flagship mobile app for instant Minecraft server creation, live console, backups, mod browsing and one-click installs across Paper, Purpur, Bedrock and Vanilla.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
