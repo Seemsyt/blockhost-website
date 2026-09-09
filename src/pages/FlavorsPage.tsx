@@ -89,7 +89,7 @@ export const FlavorsPage: React.FC<Props> = ({
         badgeIcon={<Layers className="w-3.5 h-3.5" />}
         title="Choose the Perfect Engine"
         highlightedTitle="For Your Community."
-        description="Whether you are hosting a casual Bedrock Realm replacement, a 50-player Paper SMP, or a 200-modpack Forge world, BlockHost supports all major flavors with 1-click installation."
+        description="Whether you are hosting a casual Bedrock Realm replacement, a 50-player Paper SMP, or a 200-modpack Forge world, Erex supports all major flavors with 1-click installation."
         crumbs={[{ label: 'Flavors & Engines' }]}
       />
 
@@ -168,7 +168,7 @@ export const FlavorsPage: React.FC<Props> = ({
                 <span className="text-xs font-mono-code text-emerald-400 font-bold uppercase">Pre-Configured Performance</span>
                 <h3 className="text-2xl font-bold text-white">Garbage Collection Tuned for Zero Micro-Stutter</h3>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-sans">
-                  BlockHost automatically configures industry-standard Aikar flags and ZGC/G1GC garbage collectors based on your server's RAM allocation. This eliminates the infamous 1-second freeze spikes during chunk saving.
+                  Erex automatically configures industry-standard Aikar flags and ZGC/G1GC garbage collectors based on your server's RAM allocation. This eliminates the infamous 1-second freeze spikes during chunk saving.
                 </p>
               </div>
 
@@ -201,7 +201,7 @@ export const FlavorsPage: React.FC<Props> = ({
             <div className="p-6 sm:p-8 rounded-3xl bg-slate-950 border border-slate-800 space-y-6">
               <h3 className="text-2xl font-bold text-white">Full Minecraft Version Archive</h3>
               <p className="text-slate-300 text-xs sm:text-sm font-sans leading-relaxed">
-                Need to run legacy 1.8.8 for competitive PvP with block-hitting? Or 1.16.5 for favorite modpacks? BlockHost retains all release jars with automatic Java 8, 17, and 21 runtime switching.
+                Need to run legacy 1.8.8 for competitive PvP with block-hitting? Or 1.16.5 for favorite modpacks? Erex retains all release jars with automatic Java 8, 17, and 21 runtime switching.
               </p>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono-code">

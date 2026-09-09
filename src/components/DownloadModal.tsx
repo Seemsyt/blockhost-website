@@ -41,7 +41,7 @@ export const DownloadModal: React.FC<Props> = ({ isOpen, onClose }) => {
           </div>
 
           <h3 className="text-2xl font-extrabold text-white">
-            Get BlockHost on Your Phone
+            Get Erex on Your Phone
           </h3>
           
           <p className="text-xs sm:text-sm text-slate-300">
@@ -71,7 +71,7 @@ export const DownloadModal: React.FC<Props> = ({ isOpen, onClose }) => {
             onClick={(e) => {
               e.preventDefault();
               soundManager.playLevelUp();
-              alert("Downloading BlockHost for iOS (TestFlight / App Store build v3.5.2)...");
+              alert("Downloading Erex for iOS (TestFlight / App Store build v3.5.2)...");
             }}
             className="w-full p-3.5 rounded-2xl bg-slate-800 hover:bg-slate-750 border border-slate-700 flex items-center justify-between transition-all group"
           >
@@ -93,7 +93,7 @@ export const DownloadModal: React.FC<Props> = ({ isOpen, onClose }) => {
             onClick={(e) => {
               e.preventDefault();
               soundManager.playLevelUp();
-              alert("Downloading BlockHost for Android (Google Play build v3.5.2)...");
+              alert("Downloading Erex for Android (Google Play build v3.5.2)...");
             }}
             className="w-full p-3.5 rounded-2xl bg-slate-800 hover:bg-slate-750 border border-slate-700 flex items-center justify-between transition-all group"
           >
@@ -115,7 +115,7 @@ export const DownloadModal: React.FC<Props> = ({ isOpen, onClose }) => {
             onClick={(e) => {
               e.preventDefault();
               soundManager.playPop();
-              alert("Direct APK download started: BlockHost-v3.5.2-release.apk (18.4 MB)");
+              alert("Direct APK download started: Erex-v3.5.2-release.apk (18.4 MB)");
             }}
             className="w-full p-3 rounded-2xl bg-slate-950 hover:bg-slate-900 border border-slate-800/80 flex items-center justify-between transition-all text-xs text-slate-300 font-mono-code"
           >

@@ -125,13 +125,13 @@ export const Footer: React.FC<Props> = ({ onOpenDeployWizard, onOpenDownloadModa
         {/* Bottom Disclaimers */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <p>
-            © {new Date().getFullYear()} BlockHost Inc. All rights reserved. Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.
+            © {new Date().getFullYear()} Erex Inc. All rights reserved. Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.
           </p>
 
           <div className="flex items-center gap-4">
-            <Link to="/faq" className="hover:text-slate-400 cursor-pointer">Privacy Policy</Link>
+            <Link to="/privacy" className="hover:text-slate-400 cursor-pointer">Privacy Policy</Link>
             <span>•</span>
-            <Link to="/faq" className="hover:text-slate-400 cursor-pointer">Terms of Service</Link>
+            <Link to="/terms" className="hover:text-slate-400 cursor-pointer">Terms of Service</Link>
             <span>•</span>
             <Link to="/network" className="hover:text-emerald-400 cursor-pointer flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />

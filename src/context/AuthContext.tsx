@@ -7,6 +7,7 @@ interface User {
   nickname: string;
   blockcoin_balance: number;
   email_verified?: boolean;
+  is_admin?: boolean;
 }
 
 interface AuthContextType {
@@ -32,11 +33,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const fetchUser = async () => {
       const token = getAuthToken();
-      const savedUserStr = localStorage.getItem('blockhost_user');
+      const savedUserStr = localStorage.getItem('erex_user');
       
       if (!token || !savedUserStr) {
         removeAuthToken();
-        localStorage.removeItem('blockhost_user');
+        localStorage.removeItem('erex_user');
         setLoading(false);
         return;
       }
@@ -47,7 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } catch (err) {
         console.error('Failed to parse saved user', err);
         removeAuthToken();
-        localStorage.removeItem('blockhost_user');
+        localStorage.removeItem('erex_user');
       } finally {
         setLoading(false);
       }
@@ -57,12 +58,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = (token: string, userData: User) => {
     setUser(userData);
-    localStorage.setItem('blockhost_user', JSON.stringify(userData));
+    localStorage.setItem('erex_user', JSON.stringify(userData));
   };
 
   const logout = () => {
     removeAuthToken();
-    localStorage.removeItem('blockhost_user');
+    localStorage.removeItem('erex_user');
     setUser(null);
   };
 

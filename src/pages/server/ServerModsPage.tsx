@@ -1,62 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { apiFetch } from '../../utils/api';
-import { Search, Download, Trash2, Package } from 'lucide-react';
+import { Search, Download, Trash2, Package, CheckCircle2 } from 'lucide-react';
 import { soundManager } from '../../utils/audio';
+import { ServerModDetailModal } from '../../components/ServerModDetailModal';
 
 export const ServerModsPage: React.FC = () => {
   const { server } = useOutletContext<any>();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<any[]>([]);
-  const [installedMods, setInstalledMods] = useState<any[]>([]);
   const [loadingSearch, setLoadingSearch] = useState(false);
+  const [installedMods, setInstalledMods] = useState<any[]>([]);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  
+  const [selectedModProject, setSelectedModProject] = useState<{id: string, title: string} | null>(null);
 
   useEffect(() => {
     fetchInstalledMods();
+    handleSearchAuto('optimization');
   }, [server.id]);
 
   const fetchInstalledMods = async () => {
     try {
       const data = await apiFetch(`/servers/${server.id}/mods`);
+      // The API returns { files: ["mod1.jar"] } 
       setInstalledMods(data.files || []);
     } catch (err) {
+      console.error("Failed to load installed mods", err);
+    }
+  };
+
+  const handleSearchAuto = async (searchQuery: string) => {
+    setLoadingSearch(true);
+    try {
+      const data = await apiFetch(`/servers/${server.id}/mods/search?q=${encodeURIComponent(searchQuery)}&limit=10`);
+      setResults(data.hits || []);
+    } catch (err) {
       console.error(err);
+    } finally {
+      setLoadingSearch(false);
     }
   };
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
-    setLoadingSearch(true);
-    try {
-      const data = await apiFetch(`/servers/${server.id}/mods/search?q=${encodeURIComponent(query)}&limit=10`);
-      setResults(data.hits || []);
-    } catch (err) {
-      console.error(err);
-      alert('Search failed. Ensure this server supports mods.');
-    } finally {
-      setLoadingSearch(false);
-    }
-  };
-
-  const installMod = async (modId: string) => {
-    if (actionLoading) return;
-    setActionLoading(modId);
-    soundManager.playClick();
-    try {
-      await apiFetch(`/servers/${server.id}/mods/install`, {
-        method: 'POST',
-        body: JSON.stringify({ modrinth_project_id: modId })
-      });
-      soundManager.playLevelUp();
-      alert('Mod installed successfully!');
-      fetchInstalledMods();
-    } catch (err: any) {
-      alert(`Install failed: ${err.message}`);
-    } finally {
-      setActionLoading(null);
-    }
+    handleSearchAuto(query);
   };
 
   const uninstallMod = async (filename: string) => {
@@ -118,10 +107,9 @@ export const ServerModsPage: React.FC = () => {
                     <p className="text-xs text-slate-400 line-clamp-2 mt-1">{mod.description}</p>
                   </div>
                   <button
-                    onClick={() => installMod(mod.project_id)}
-                    disabled={actionLoading === mod.project_id}
-                    className="p-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 disabled:opacity-50 shrink-0"
-                    title="Install"
+                    onClick={() => setSelectedModProject({ id: mod.project_id, title: mod.title })}
+                    className="p-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 shrink-0"
+                    title="View & Install"
                   >
                     <Download className="w-4 h-4" />
                   </button>
@@ -160,6 +148,17 @@ export const ServerModsPage: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      <ServerModDetailModal
+        isOpen={!!selectedModProject}
+        onClose={() => {
+          setSelectedModProject(null);
+          fetchInstalledMods(); // Refresh to reflect new installs
+        }}
+        serverId={server.id}
+        projectId={selectedModProject?.id || ''}
+        initialTitle={selectedModProject?.title || ''}
+      />
     </div>
   );
 };

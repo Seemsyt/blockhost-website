@@ -10,7 +10,7 @@ const REVIEWS = [
     avatar: '⚔️',
     flavor: 'Purpur 1.21.4',
     rating: 5,
-    text: 'Running a 80-player SMP used to mean sitting at my desktop constantly watching logs. With BlockHost on my iPhone, I can op players, roll back griefing, and check TPS while waiting in line at coffee. It literally changed how I manage my community.'
+    text: 'Running a 80-player SMP used to mean sitting at my desktop constantly watching logs. With Erex on my iPhone, I can op players, roll back griefing, and check TPS while waiting in line at coffee. It literally changed how I manage my community.'
   },
   {
     name: 'Sarah Chen',
@@ -18,7 +18,7 @@ const REVIEWS = [
     avatar: '📱',
     flavor: 'Bedrock BDS + Geyser',
     rating: 5,
-    text: 'We exceeded the 10-player limit on standard Minecraft Realms. BlockHost allowed our entire school class of 35 Bedrock and iOS players to connect with 0 lag and 20.0 TPS. The 1-click cloud backups gave us total peace of mind.'
+    text: 'We exceeded the 10-player limit on standard Minecraft Realms. Erex allowed our entire school class of 35 Bedrock and iOS players to connect with 0 lag and 20.0 TPS. The 1-click cloud backups gave us total peace of mind.'
   },
   {
     name: 'Dmitri Pavlov',
@@ -63,7 +63,7 @@ export const TestimonialsSection: React.FC = () => {
             </h2>
 
             <p className="text-slate-300 text-sm sm:text-base">
-              See why server admins rate BlockHost 4.9/5 stars on iOS App Store and Google Play.
+              See why server admins rate Erex 4.9/5 stars on iOS App Store and Google Play.
             </p>
           </div>
         </ScrollReveal>

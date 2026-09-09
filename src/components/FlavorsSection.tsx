@@ -108,7 +108,7 @@ const FLAVORS_LIST: FlavorInfo[] = [
       'Fast startup times (under 5 seconds)',
       'Home of Create Mod, Sodium, Lithium, and Iris',
       'Modular architecture that preserves vanilla feel',
-      'BlockHost 1-click Fabric mod installer integration'
+      'Erex 1-click Fabric mod installer integration'
     ],
     popularPluginsOrMods: ['Create Mod', 'Lithium', 'FerriteCore', 'FTB Quests', 'Applied Energistics 2'],
     versionSupport: '1.14.4 to 1.21.4',
@@ -128,7 +128,7 @@ const FLAVORS_LIST: FlavorInfo[] = [
     features: [
       'Support for 300+ mod mega packs',
       'Optimized JVM garbage collection flags pre-configured',
-      'Automatic config conflict detector in BlockHost app',
+      'Automatic config conflict detector in Erex app',
       'High-memory allocation options up to 32GB RAM'
     ],
     popularPluginsOrMods: ['RLCraft', 'All The Mods', 'Pixelmon', 'Tinkers Construct', 'Mekanism'],
@@ -174,7 +174,7 @@ export const FlavorsSection: React.FC<Props> = ({
             </h2>
             
             <p className="text-slate-300 text-sm sm:text-base">
-              Whether you want ultra-fast Bedrock mobile crossplay, hardcore Paper SMP with 50+ plugins, or a 200-mod Fabric tech pack — BlockHost handles all dependencies automatically.
+              Whether you want ultra-fast Bedrock mobile crossplay, hardcore Paper SMP with 50+ plugins, or a 200-mod Fabric tech pack — Erex handles all dependencies automatically.
             </p>
           </div>
         </ScrollReveal>

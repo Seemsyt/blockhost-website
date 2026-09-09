@@ -86,7 +86,7 @@ export const MobileFeaturesSection: React.FC<Props> = ({
             </h2>
 
             <p className="text-slate-300 text-sm sm:text-base">
-              Test drive the BlockHost mobile app below! Click the buttons, type console commands, browse mods, and edit server properties live.
+              Test drive the Erex mobile app below! Click the buttons, type console commands, browse mods, and edit server properties live.
             </p>
           </div>
         </ScrollReveal>
@@ -166,7 +166,7 @@ export const MobileFeaturesSection: React.FC<Props> = ({
                 className="w-full sm:w-auto px-5 py-3 rounded-2xl glass-panel hover:bg-slate-800/80 border-slate-700 text-slate-200 font-mono-code text-xs flex items-center justify-center gap-2 transition-all hover:scale-105 cursor-pointer"
               >
                 <Smartphone className="w-4 h-4 text-emerald-400" />
-                <span>Get BlockHost App</span>
+                <span>Get Erex App</span>
               </button>
             </div>
 

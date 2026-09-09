@@ -394,7 +394,7 @@ export const ServerDeployWizardModal: React.FC<Props> = ({
                   <div>
                     <h5 className="font-bold text-xs text-white">Scan to Manage on Phone</h5>
                     <p className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                      Open in BlockHost mobile app for live console, player controls, and 1-click backups.
+                      Open in Erex mobile app for live console, player controls, and 1-click backups.
                     </p>
                   </div>
                 </div>

@@ -6,8 +6,8 @@ import { ScrollReveal } from './ScrollReveal';
 
 const FAQS = [
   {
-    q: 'What server flavors and versions does BlockHost support?',
-    a: 'BlockHost supports every major Minecraft engine: Paper (PaperMC), Purpur, Bedrock Dedicated Server (BDS), Fabric, Forge, NeoForge, Spigot, and pure Vanilla Mojang. We support versions from 1.8.8 up to the latest 1.21.4 release, as well as weekly snapshot builds.'
+    q: 'What server flavors and versions does Erex support?',
+    a: 'Erex supports every major Minecraft engine: Paper (PaperMC), Purpur, Bedrock Dedicated Server (BDS), Fabric, Forge, NeoForge, Spigot, and pure Vanilla Mojang. We support versions from 1.8.8 up to the latest 1.21.4 release, as well as weekly snapshot builds.'
   },
   {
     q: 'Does my mobile phone need to stay turned on for the server to run?',
@@ -19,15 +19,15 @@ const FAQS = [
   },
   {
     q: 'Can I import my existing world from Singleplayer or Minecraft Realms?',
-    a: 'Yes! In the mobile file manager, you can upload your existing world folder as a .ZIP file or connect via SFTP/FTP. BlockHost will automatically unpack and verify your level.dat coordinates.'
+    a: 'Yes! In the mobile file manager, you can upload your existing world folder as a .ZIP file or connect via SFTP/FTP. Erex will automatically unpack and verify your level.dat coordinates.'
   },
   {
     q: 'How do the 1-click mods and plugins work?',
-    a: 'BlockHost directly indexes CurseForge, Modrinth, and SpigotMC. When you tap "Install", our system downloads the correct jar matching your exact server flavor and version, resolves required dependencies (like Fabric API or Vault), and places it in your plugins/ or mods/ folder.'
+    a: 'Erex directly indexes CurseForge, Modrinth, and SpigotMC. When you tap "Install", our system downloads the correct jar matching your exact server flavor and version, resolves required dependencies (like Fabric API or Vault), and places it in your plugins/ or mods/ folder.'
   },
   {
     q: 'What DDoS protection is included?',
-    a: 'All BlockHost servers are permanently protected by Path.net Anycast DDoS scrubbing with 12 Tbps filtering capacity. Layer 4 and Layer 7 Minecraft volumetric floods, bot joins, and ping attacks are filtered with zero TPS degradation.'
+    a: 'All Erex servers are permanently protected by Path.net Anycast DDoS scrubbing with 12 Tbps filtering capacity. Layer 4 and Layer 7 Minecraft volumetric floods, bot joins, and ping attacks are filtered with zero TPS degradation.'
   },
   {
     q: 'Can I switch flavors after creating my server?',
@@ -63,7 +63,7 @@ export const FaqSection: React.FC = () => {
             </h2>
 
             <p className="text-slate-300 text-sm sm:text-base">
-              Everything you need to know about hosting Minecraft on BlockHost mobile.
+              Everything you need to know about hosting Minecraft on Erex mobile.
             </p>
           </div>
         </ScrollReveal>

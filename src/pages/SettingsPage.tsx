@@ -11,7 +11,7 @@ export const SettingsPage: React.FC = () => {
     <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
         <h1 className="text-3xl font-extrabold text-white tracking-tight">Account Settings</h1>
-        <p className="text-sm text-slate-400 font-mono-code mt-1">Manage your BlockHost profile and preferences.</p>
+        <p className="text-sm text-slate-400 font-mono-code mt-1">Manage your Erex profile and preferences.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

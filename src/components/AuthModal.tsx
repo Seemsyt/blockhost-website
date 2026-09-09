@@ -21,6 +21,7 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [legalAccepted, setLegalAccepted] = useState(false);
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,7 +60,16 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
     } catch (err: any) {
       soundManager.playPop();
       if (err instanceof ApiError) {
-        setError(err.message);
+        // Detect the "verification_required" 403 from login and redirect
+        // to the OTP flow instead of showing a dead-end error message.
+        if (err.status === 403 && err.data?.detail?.status === 'verification_required') {
+          const verifyEmail = err.data.detail.email || email;
+          setPendingVerificationEmail(verifyEmail);
+          setOtp('');
+          setNotice(err.data.detail.message || 'A new verification code has been sent to your email.');
+        } else {
+          setError(err.message);
+        }
       } else {
         setError('An unexpected error occurred');
       }
@@ -200,9 +210,26 @@ export const AuthModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
             </div>
           )}
 
+          {!isLogin && !pendingVerificationEmail && (
+            <div className="flex items-start gap-2 mt-2">
+              <input
+                type="checkbox"
+                id="legal-accept"
+                checked={legalAccepted}
+                onChange={(e) => setLegalAccepted(e.target.checked)}
+                className="mt-1 bg-slate-950 border border-slate-800 rounded checked:bg-emerald-500 focus:ring-emerald-500 text-emerald-500"
+              />
+              <label htmlFor="legal-accept" className="text-xs text-slate-400 leading-tight">
+                I agree to the <a href="/terms" className="text-emerald-400 hover:underline" target="_blank" rel="noopener noreferrer">Terms of Service</a>,{' '}
+                <a href="/aup" className="text-emerald-400 hover:underline" target="_blank" rel="noopener noreferrer">Acceptable Use Policy</a>, and{' '}
+                <a href="/privacy" className="text-emerald-400 hover:underline" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+              </label>
+            </div>
+          )}
+
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || (!isLogin && !pendingVerificationEmail && !legalAccepted)}
             className="w-full mt-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/20 disabled:opacity-50 transition-all"
           >
             {loading ? 'Please wait...' : (pendingVerificationEmail ? 'Verify' : (isLogin ? 'Login' : 'Sign Up'))}

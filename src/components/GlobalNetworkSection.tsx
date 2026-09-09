@@ -9,14 +9,14 @@ import { soundManager } from '../utils/audio';
 import { ScrollReveal } from './ScrollReveal';
 
 const DATACENTERS: DatacenterLocation[] = [
-  { id: 'us-east', city: 'Ashburn, VA', country: 'United States', flag: '🇺🇸', region: 'North America East', ipTest: 'va.blockhost.gg', basePingMs: 14, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
-  { id: 'us-west', city: 'Los Angeles, CA', country: 'United States', flag: '🇺🇸', region: 'North America West', ipTest: 'la.blockhost.gg', basePingMs: 22, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
-  { id: 'eu-central', city: 'Frankfurt', country: 'Germany', flag: '🇩🇪', region: 'Europe Central', ipTest: 'de.blockhost.gg', basePingMs: 18, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
-  { id: 'eu-west', city: 'London', country: 'United Kingdom', flag: '🇬🇧', region: 'Europe West', ipTest: 'uk.blockhost.gg', basePingMs: 16, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
-  { id: 'ap-southeast', city: 'Singapore', country: 'Singapore', flag: '🇸🇬', region: 'Asia Pacific', ipTest: 'sg.blockhost.gg', basePingMs: 28, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
-  { id: 'ap-northeast', city: 'Tokyo', country: 'Japan', flag: '🇯🇵', region: 'East Asia', ipTest: 'jp.blockhost.gg', basePingMs: 32, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
-  { id: 'sa-east', city: 'São Paulo', country: 'Brazil', flag: '🇧🇷', region: 'South America', ipTest: 'br.blockhost.gg', basePingMs: 38, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
-  { id: 'oc-east', city: 'Sydney', country: 'Australia', flag: '🇦🇺', region: 'Oceania', ipTest: 'au.blockhost.gg', basePingMs: 35, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'us-east', city: 'Ashburn, VA', country: 'United States', flag: '🇺🇸', region: 'North America East', ipTest: 'va.erex.gg', basePingMs: 14, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'us-west', city: 'Los Angeles, CA', country: 'United States', flag: '🇺🇸', region: 'North America West', ipTest: 'la.erex.gg', basePingMs: 22, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'eu-central', city: 'Frankfurt', country: 'Germany', flag: '🇩🇪', region: 'Europe Central', ipTest: 'de.erex.gg', basePingMs: 18, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'eu-west', city: 'London', country: 'United Kingdom', flag: '🇬🇧', region: 'Europe West', ipTest: 'uk.erex.gg', basePingMs: 16, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'ap-southeast', city: 'Singapore', country: 'Singapore', flag: '🇸🇬', region: 'Asia Pacific', ipTest: 'sg.erex.gg', basePingMs: 28, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'ap-northeast', city: 'Tokyo', country: 'Japan', flag: '🇯🇵', region: 'East Asia', ipTest: 'jp.erex.gg', basePingMs: 32, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'sa-east', city: 'São Paulo', country: 'Brazil', flag: '🇧🇷', region: 'South America', ipTest: 'br.erex.gg', basePingMs: 38, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
+  { id: 'oc-east', city: 'Sydney', country: 'Australia', flag: '🇦🇺', region: 'Oceania', ipTest: 'au.erex.gg', basePingMs: 35, status: 'Operational', hardware: 'Ryzen 9 7950X3D' },
 ];
 
 export const GlobalNetworkSection: React.FC = () => {

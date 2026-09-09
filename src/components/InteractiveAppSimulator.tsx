@@ -10,7 +10,7 @@ import { ConsoleLogLine, ModItem, BackupItem, MinecraftFlavor } from '../types';
 import { soundManager } from '../utils/audio';
 
 const INITIAL_LOGS: ConsoleLogLine[] = [
-  { id: '1', timestamp: '14:20:01', level: 'SYSTEM', message: 'BlockHost Mobile Daemon v3.4.2 connected (Socket ID: #8892)' },
+  { id: '1', timestamp: '14:20:01', level: 'SYSTEM', message: 'Erex Mobile Daemon v3.4.2 connected (Socket ID: #8892)' },
   { id: '2', timestamp: '14:20:02', level: 'INFO', message: '[Paper] Loading world "Survival_SMP_S5" (Dimensions: Overworld, Nether, End)' },
   { id: '3', timestamp: '14:20:04', level: 'INFO', message: '[Paper] Preparing spawn area: 100%' },
   { id: '4', timestamp: '14:20:05', level: 'INFO', message: '[Geyser-Spigot] Bedrock crossplay bridge active on UDP 19132' },
@@ -18,7 +18,7 @@ const INITIAL_LOGS: ConsoleLogLine[] = [
   { id: '6', timestamp: '14:20:08', level: 'INFO', message: 'Done (4.218s)! For help, type "help"' },
   { id: '7', timestamp: '14:20:15', level: 'CHAT', message: '<Alex_Gamer> logged in from London (Bedrock PE)' },
   { id: '8', timestamp: '14:20:22', level: 'CHAT', message: '<NotchFan99> joined the game (Java 1.21.4)' },
-  { id: '9', timestamp: '14:21:00', level: 'INFO', message: '[BlockHost Backup] Cloud snapshot #204 verified on S3' },
+  { id: '9', timestamp: '14:21:00', level: 'INFO', message: '[Erex Backup] Cloud snapshot #204 verified on S3' },
 ];
 
 const POPULAR_MODS: ModItem[] = [
@@ -130,7 +130,7 @@ export const InteractiveAppSimulator: React.FC = () => {
   const [isBackingUp, setIsBackingUp] = useState(false);
   const [activeFile, setActiveFile] = useState<string | null>('server.properties');
   const [serverProperties, setServerProperties] = useState({
-    motd: '§a§lBlockHost SMP §7• §eBedrock & Java Joinable!',
+    motd: '§a§lErex SMP §7• §eBedrock & Java Joinable!',
     maxPlayers: 50,
     difficulty: 'hard',
     pvp: true,
@@ -180,7 +180,7 @@ export const InteractiveAppSimulator: React.FC = () => {
         soundManager.playLevelUp();
         setLogs(prev => [
           ...prev,
-          { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'INFO', message: '[BlockHost Engine] Server started in 3.8s on port 25565.' }
+          { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'INFO', message: '[Erex Engine] Server started in 3.8s on port 25565.' }
         ]);
       }, 1500);
     }
@@ -197,7 +197,7 @@ export const InteractiveAppSimulator: React.FC = () => {
 
   const copyServerIp = () => {
     soundManager.playPop();
-    navigator.clipboard.writeText('mc.blockhost.gg:25565');
+    navigator.clipboard.writeText('mc.erex.gg:25565');
     setCopiedIp(true);
     setTimeout(() => setCopiedIp(false), 2000);
   };
@@ -404,7 +404,7 @@ export const InteractiveAppSimulator: React.FC = () => {
                   <div className="mt-3 p-2 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between font-mono-code text-[11px]">
                     <div className="flex items-center gap-1.5 text-slate-300 truncate">
                       <Globe className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                      <span className="truncate">mc.blockhost.gg:25565</span>
+                      <span className="truncate">mc.erex.gg:25565</span>
                     </div>
                     <button
                       id="mobile-copy-ip-btn"

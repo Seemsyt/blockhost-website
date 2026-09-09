@@ -18,7 +18,7 @@ export const DatacentersPage: React.FC<Props> = ({ onOpenDeployWizard }) => {
         badgeIcon={<Globe className="w-3.5 h-3.5" />}
         title="8 Global Datacenters with"
         highlightedTitle="Path.net 12 Tbps DDoS Scrubbing."
-        description="Every BlockHost node is provisioned on AMD Ryzen 9 7950X3D dedicated hardware with BGP Anycast routing and multi-homed Tier-1 fiber connectivity for minimal latency."
+        description="Every Erex node is provisioned on AMD Ryzen 9 7950X3D dedicated hardware with BGP Anycast routing and multi-homed Tier-1 fiber connectivity for minimal latency."
         crumbs={[{ label: 'Global Datacenters' }]}
       />
 

@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { apiFetch, API_BASE_URL, getAuthToken } from '../utils/api';
 
 const DEMO_LOGS: ConsoleLogLine[] = [
-  { id: '1', timestamp: '14:30:10', level: 'SYSTEM', message: '[BlockHost Bridge] WebSocket connected securely on TLS v1.3 (Latency: 11ms)' },
+  { id: '1', timestamp: '14:30:10', level: 'SYSTEM', message: '[Erex Bridge] WebSocket connected securely on TLS v1.3 (Latency: 11ms)' },
   { id: '2', timestamp: '14:30:11', level: 'INFO', message: '[Paper] Loaded 84 plugin jars with 0 dependency conflicts.' },
   { id: '3', timestamp: '14:30:12', level: 'INFO', message: '[LuckPerms] Loaded 4 permission groups (default, vip, mod, admin) from SQLite.' },
   { id: '4', timestamp: '14:30:15', level: 'CHAT', message: '§b<Alex_Pro>§r: Hello everyone! Just joined from Pocket Edition iOS!' },
@@ -52,11 +52,11 @@ export const LiveConsoleShowcase: React.FC = () => {
         };
         
         newWs.onopen = () => {
-          setLogs(prev => [...prev, { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'SYSTEM', message: '[BlockHost Bridge] WebSocket connected securely.' }]);
+          setLogs(prev => [...prev, { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'SYSTEM', message: '[Erex Bridge] WebSocket connected securely.' }]);
         };
 
         newWs.onclose = () => {
-          setLogs(prev => [...prev, { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'WARN', message: '[BlockHost Bridge] Connection closed.' }]);
+          setLogs(prev => [...prev, { id: Date.now().toString(), timestamp: new Date().toLocaleTimeString(), level: 'WARN', message: '[Erex Bridge] Connection closed.' }]);
         };
 
         setWs(newWs);
@@ -147,7 +147,7 @@ export const LiveConsoleShowcase: React.FC = () => {
                   <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
                 </div>
                 <span className="text-xs text-slate-300 font-bold ml-2">
-                  root@blockhost-mobile-daemon:~# live-tail
+                  root@erex-mobile-daemon:~# live-tail
                 </span>
               </div>
 

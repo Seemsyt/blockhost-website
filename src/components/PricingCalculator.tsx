@@ -77,7 +77,7 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
 
   const predefinedTiers = [
     { name: 'Dirt Tier', ram: 2, icon: '🟫', price: billingCycle === 'monthly' ? 3.90 : 3.12, tag: 'Bedrock & Vanilla' },
-    { name: 'Iron Tier', ram: 4, icon: '⬜', price: billingCycle === 'monthly' ? 7.80 : 6.24, tag: 'Paper SMP (Popular)', popular: true },
+    { name: 'Iron Tier', ram: 4, icon: '⬜', price: billingCycle === 'monthly' ? 7.80 : 6.24, tag: 'Paper SMP', popular: true },
     { name: 'Diamond Tier', ram: 8, icon: '💎', price: billingCycle === 'monthly' ? 14.00 : 11.20, tag: 'Fabric Modded' },
     { name: 'Netherite Tier', ram: 16, icon: '⬛', price: billingCycle === 'monthly' ? 24.80 : 19.84, tag: 'Heavy Modpacks' },
   ];
@@ -85,46 +85,49 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
   return (
     <section id="pricing" className="py-24 relative bg-[#090d16] border-t border-white/[0.06] overflow-hidden">
       {/* Background glow mesh orbs */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] mesh-orb-emerald pointer-events-none" />
-      <div className="absolute top-10 right-10 w-[450px] h-[450px] mesh-orb-cyan pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] mesh-orb-emerald pointer-events-none opacity-60" />
+      <div className="absolute top-10 right-10 w-[450px] h-[450px] mesh-orb-cyan pointer-events-none opacity-40" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
         <ScrollReveal variant="fade-up">
-          <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full glass-pill text-xs font-mono-code text-emerald-400">
-              <Sliders className="w-3.5 h-3.5" />
-              <span>Interactive Server Calculator</span>
+          <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
+            <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full glass-pill border border-emerald-500/30 text-xs font-mono-code text-emerald-400 bg-emerald-500/10 shadow-[0_0_15px_rgba(52,211,153,0.15)]">
+              <Sparkles className="w-4 h-4" />
+              <span className="font-bold tracking-wider uppercase">Interactive Calculator</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight">
               Transparent Pricing. <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
-                No Hidden Fees or Player Slot Limits.
+                Zero Hidden Fees.
               </span>
             </h2>
 
-            <p className="text-slate-300 text-sm sm:text-base">
+            <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
               All plans include unlimited player slots, unmetered bandwidth, NVMe Gen4 storage, and live mobile app management.
             </p>
 
             {/* Billing Cycle Toggle */}
-            <div className="pt-4 flex items-center justify-center gap-3">
-              <div className="p-1 rounded-2xl glass-panel border-white/[0.08] flex items-center gap-1 font-mono-code text-xs">
+            <div className="pt-6 flex items-center justify-center">
+              <div className="p-1.5 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-white/10 flex items-center gap-1 font-mono-code text-sm shadow-xl">
                 <button
                   type="button"
                   onClick={() => {
                     soundManager.playClick();
                     setBillingCycle('monthly');
                   }}
-                  className={`px-4 py-2 rounded-xl transition-all font-bold cursor-pointer ${
+                  className={`px-6 py-2.5 rounded-xl transition-all font-bold cursor-pointer relative ${
                     billingCycle === 'monthly'
-                      ? 'bg-slate-800 text-white shadow-md'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'text-white'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                   }`}
                 >
-                  Monthly Billing
+                  {billingCycle === 'monthly' && (
+                    <motion.div layoutId="billingToggle" className="absolute inset-0 bg-slate-800 rounded-xl shadow-md border border-white/5 z-0" />
+                  )}
+                  <span className="relative z-10">Monthly</span>
                 </button>
 
                 <button
@@ -133,14 +136,17 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
                     soundManager.playClick();
                     setBillingCycle('yearly');
                   }}
-                  className={`px-4 py-2 rounded-xl transition-all font-bold flex items-center gap-1.5 cursor-pointer ${
+                  className={`px-6 py-2.5 rounded-xl transition-all font-bold flex items-center gap-2 cursor-pointer relative ${
                     billingCycle === 'yearly'
-                      ? 'bg-emerald-500 text-slate-950 shadow-md font-extrabold'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'text-slate-950'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                   }`}
                 >
-                  <span>Yearly Billing</span>
-                  <span className="px-1.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-extrabold">
+                  {billingCycle === 'yearly' && (
+                    <motion.div layoutId="billingToggle" className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-xl shadow-[0_0_15px_rgba(52,211,153,0.3)] z-0" />
+                  )}
+                  <span className="relative z-10">Yearly</span>
+                  <span className={`relative z-10 px-2 py-0.5 rounded-full text-[10px] font-extrabold ${billingCycle === 'yearly' ? 'bg-slate-950/20 text-slate-950' : 'bg-emerald-500/20 text-emerald-400'}`}>
                     SAVE 20%
                   </span>
                 </button>
@@ -150,53 +156,61 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
         </ScrollReveal>
 
         {/* 2-Column: Interactive RAM Slider Card & Live Spec Calculator */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-5xl mx-auto mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto mb-20">
           
           {/* Left Column: Interactive Slider Container */}
           <ScrollReveal variant="fade-right" className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-3xl glass-panel-heavy border-white/[0.1] shadow-2xl space-y-6 card-lift-subtle">
+            <div className="p-8 sm:p-10 rounded-3xl bg-slate-900/60 backdrop-blur-2xl border border-white/10 shadow-2xl space-y-8 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -z-10 group-hover:bg-emerald-500/20 transition-colors"></div>
               
               {/* Header with selected RAM */}
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-mono-code text-slate-400 uppercase">Memory Allocation</span>
-                  <div className="flex items-baseline gap-2 mt-1">
-                    <span className="text-4xl font-extrabold font-mono-code text-white">{ramGB} GB</span>
-                    <span className="text-sm font-mono-code text-emerald-400 font-bold">DDR5 ECC 5600MHz</span>
+                  <span className="text-xs font-mono-code text-slate-400 uppercase tracking-widest font-bold">Memory Allocation</span>
+                  <div className="flex items-baseline gap-3 mt-2">
+                    <span className="text-5xl font-extrabold font-mono-code text-white drop-shadow-md">{ramGB} GB</span>
+                    <span className="text-sm font-mono-code text-emerald-400 font-bold bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/20">DDR5 ECC 5600MHz</span>
                   </div>
                 </div>
 
-                <div className="px-3 py-1.5 rounded-xl glass-pill text-right border-emerald-500/30">
-                  <span className="text-[10px] font-mono-code text-slate-400 uppercase block">Tier</span>
-                  <span className="text-xs font-mono-code font-bold text-emerald-300">{specs.tierName.split(' ')[0]} Tier</span>
+                <div className="px-4 py-2 rounded-xl bg-slate-950/50 border border-emerald-500/30 text-right shadow-inner">
+                  <span className="text-[10px] font-mono-code text-slate-400 uppercase block tracking-wider">Tier Rating</span>
+                  <span className="text-sm font-mono-code font-bold text-emerald-400 drop-shadow-[0_0_5px_rgba(52,211,153,0.5)]">{specs.tierName.split(' ')[0]} Tier</span>
                 </div>
               </div>
 
               {/* The Range Slider */}
-              <div className="space-y-2">
-                <input
-                  id="pricing-ram-slider"
-                  type="range"
-                  min="2"
-                  max="32"
-                  step="1"
-                  value={ramGB}
-                  onChange={(e) => {
-                    soundManager.playClick();
-                    setRamGB(parseInt(e.target.value));
-                  }}
-                  className="w-full h-3 bg-slate-950/80 rounded-lg appearance-none cursor-pointer accent-emerald-400 border border-white/5"
-                />
-                <div className="flex justify-between text-[11px] font-mono-code text-slate-500">
-                  <span>2 GB (Starter)</span>
-                  <span>8 GB (SMP)</span>
-                  <span>16 GB (Modpack)</span>
-                  <span>32 GB (Titan)</span>
+              <div className="space-y-4 py-2">
+                <div className="relative">
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 h-3 bg-gradient-to-r from-emerald-500 to-cyan-400 rounded-l-lg pointer-events-none" style={{ width: `${((ramGB - 2) / 30) * 100}%` }}>
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] scale-150"></div>
+                  </div>
+                  <input
+                    id="pricing-ram-slider"
+                    type="range"
+                    min="2"
+                    max="32"
+                    step="1"
+                    value={ramGB}
+                    onChange={(e) => {
+                      soundManager.playClick();
+                      setRamGB(parseInt(e.target.value));
+                    }}
+                    className="w-full h-3 bg-slate-950 rounded-lg appearance-none cursor-pointer relative z-10 opacity-0"
+                  />
+                  <div className="absolute inset-0 h-3 bg-slate-950 border border-white/10 rounded-lg pointer-events-none"></div>
+                </div>
+                
+                <div className="flex justify-between text-[11px] font-mono-code text-slate-500 font-bold tracking-wider uppercase">
+                  <span>2 GB</span>
+                  <span>8 GB</span>
+                  <span>16 GB</span>
+                  <span>32 GB</span>
                 </div>
               </div>
 
               {/* Predefined Quick Jump Buttons */}
-              <div className="grid grid-cols-4 gap-2 pt-1">
+              <div className="grid grid-cols-4 gap-3">
                 {[2, 4, 8, 16].map((gb) => (
                   <button
                     key={gb}
@@ -204,10 +218,10 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
                       soundManager.playPop();
                       setRamGB(gb);
                     }}
-                    className={`py-2 rounded-xl text-xs font-mono-code font-bold border transition-all cursor-pointer ${
+                    className={`py-3 rounded-xl text-xs font-mono-code font-bold border transition-all cursor-pointer ${
                       ramGB === gb
-                        ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-md'
-                        : 'glass-panel text-slate-300 border-white/[0.08] hover:text-white hover:border-emerald-500/30'
+                        ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.3)]'
+                        : 'bg-slate-950/50 text-slate-400 border-white/5 hover:text-white hover:border-emerald-500/30 hover:bg-slate-900'
                     }`}
                   >
                     {gb} GB
@@ -216,22 +230,22 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
               </div>
 
               {/* Included Specs Grid */}
-              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/[0.08] text-xs">
-                <div className="p-3 rounded-xl glass-panel-subtle">
-                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase">CPU Allocation</span>
-                  <span className="text-slate-100 font-bold font-mono-code">{specs.cpu}</span>
+              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/10 text-xs">
+                <div className="p-4 rounded-xl bg-slate-950/40 border border-white/5 hover:border-white/10 transition-colors">
+                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase tracking-widest mb-1 flex items-center gap-1.5"><Cpu className="w-3 h-3"/> CPU</span>
+                  <span className="text-slate-100 font-bold font-mono-code text-sm">{specs.cpu}</span>
                 </div>
-                <div className="p-3 rounded-xl glass-panel-subtle">
-                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase">Storage Drive</span>
-                  <span className="text-slate-100 font-bold font-mono-code">{specs.storage}</span>
+                <div className="p-4 rounded-xl bg-slate-950/40 border border-white/5 hover:border-white/10 transition-colors">
+                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase tracking-widest mb-1 flex items-center gap-1.5"><HardDrive className="w-3 h-3"/> Storage</span>
+                  <span className="text-slate-100 font-bold font-mono-code text-sm">{specs.storage}</span>
                 </div>
-                <div className="p-3 rounded-xl glass-panel-subtle">
-                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase">Recommended Capacity</span>
-                  <span className="text-emerald-400 font-bold font-mono-code">{specs.players}</span>
+                <div className="p-4 rounded-xl bg-slate-950/40 border border-white/5 hover:border-white/10 transition-colors">
+                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase tracking-widest mb-1">Capacity</span>
+                  <span className="text-emerald-400 font-bold font-mono-code text-sm">{specs.players}</span>
                 </div>
-                <div className="p-3 rounded-xl glass-panel-subtle">
-                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase">Best Flavor</span>
-                  <span className="text-cyan-400 font-bold font-mono-code truncate block">{specs.flavor}</span>
+                <div className="p-4 rounded-xl bg-slate-950/40 border border-white/5 hover:border-white/10 transition-colors">
+                  <span className="text-slate-400 block text-[10px] font-mono-code uppercase tracking-widest mb-1">Flavor</span>
+                  <span className="text-cyan-400 font-bold font-mono-code text-sm truncate block">{specs.flavor}</span>
                 </div>
               </div>
 
@@ -240,38 +254,40 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
 
           {/* Right Column: Live Plan Summary & Instant Checkout/Deploy */}
           <ScrollReveal variant="fade-left" className="lg:col-span-5">
-            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-emerald-950/40 backdrop-blur-2xl border border-emerald-500/40 shadow-2xl space-y-6">
+            <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-emerald-950/40 backdrop-blur-2xl border border-emerald-500/40 shadow-[0_0_30px_rgba(52,211,153,0.15)] space-y-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 text-[120px] opacity-5 -mt-6 -mr-6">💎</div>
+              
               <div>
-                <span className="px-3 py-1 rounded-full text-[10px] font-mono-code font-bold glass-pill text-emerald-300 border-emerald-500/40 uppercase">
+                <span className="px-3 py-1 rounded-full text-[10px] font-mono-code font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest inline-flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3 h-3" />
                   {specs.badge}
                 </span>
                 
-                <div className="flex items-baseline gap-1 mt-3">
-                  <span className="text-5xl font-extrabold font-mono-code text-white">
+                <div className="flex items-baseline gap-1 mt-4">
+                  <span className="text-6xl font-extrabold font-mono-code text-white drop-shadow-lg">
                     ${currentPricing.activePrice}
                   </span>
-                  <span className="text-slate-400 font-mono-code text-sm">/month</span>
+                  <span className="text-slate-400 font-mono-code text-base">/mo</span>
                 </div>
 
-                <p className="text-xs text-slate-400 mt-1 font-mono-code">
+                <p className="text-sm text-emerald-400/80 mt-2 font-mono-code font-bold">
                   {billingCycle === 'yearly' ? 'Billed annually ($' + (currentPricing.activePrice * 12).toFixed(2) + '/yr)' : 'Billed monthly, cancel anytime.'}
                 </p>
               </div>
 
               {/* Checklist of Included Features */}
-              <div className="space-y-2.5 text-xs text-slate-200">
+              <div className="space-y-3.5 text-sm text-slate-300">
                 {[
-                  'Full BlockHost iOS & Android mobile app access',
+                  'Full Erex iOS & Android mobile app access',
                   'Real-time streaming live console & commands',
                   '1-Click Mod & Plugin installer (50,000+ available)',
                   'Hourly automated S3 cloud backups & rollback',
                   'Mobile SFTP & visual server.properties editor',
                   '12 Tbps DDoS mitigation (Path.net Protected)',
-                  'Free custom subdomain (yourname.blockhost.gg)',
-                  '99.99% Network Uptime SLA guarantee'
+                  'Free custom subdomain (yourname.erex.gg)'
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5 drop-shadow-[0_0_5px_rgba(52,211,153,0.5)]" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -285,11 +301,12 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
                   soundManager.playLevelUp();
                   onSelectPlan(ramGB, billingCycle);
                 }}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-mono-code text-sm font-extrabold flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/25 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-mono-code text-base font-extrabold flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(52,211,153,0.4)] transition-all hover:scale-[1.03] active:scale-95 cursor-pointer relative overflow-hidden group"
               >
-                <Zap className="w-4 h-4 fill-current" />
-                <span>Deploy {ramGB} GB Server (45s)</span>
-                <ArrowRight className="w-4 h-4" />
+                <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <Zap className="w-5 h-5 fill-current relative z-10" />
+                <span className="relative z-10">Deploy {ramGB} GB Server (45s)</span>
+                <ArrowRight className="w-5 h-5 relative z-10" />
               </button>
             </div>
           </ScrollReveal>
@@ -297,48 +314,60 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
         </div>
 
         {/* 4 Standard Pre-packaged Tier Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {predefinedTiers.map((tier, idx) => (
             <motion.div
               key={tier.name}
               initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.08, duration: 0.5 }}
-              className={`p-5 rounded-2xl border card-lift cursor-pointer ${
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              className={`relative p-6 rounded-3xl border transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden group ${
                 tier.popular 
-                  ? 'glass-panel border-emerald-500/60 shadow-lg shadow-emerald-500/20 ring-1 ring-emerald-500/30' 
-                  : 'glass-card hover:border-white/20'
+                  ? 'bg-slate-900/80 border-emerald-500/50 shadow-[0_10px_30px_rgba(52,211,153,0.15)] ring-1 ring-emerald-500/30 hover:shadow-[0_15px_40px_rgba(52,211,153,0.25)]' 
+                  : 'bg-slate-900/40 backdrop-blur-md border-white/10 hover:border-emerald-500/30 hover:bg-slate-900/60'
               }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-2xl">{tier.icon}</span>
-                {tier.popular && (
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono-code font-bold bg-emerald-500 text-slate-950">
-                    POPULAR
-                  </span>
-                )}
+              {tier.popular && (
+                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-[40px] -mr-10 -mt-10 group-hover:bg-emerald-500/30 transition-colors"></div>
+              )}
+              
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-3xl filter drop-shadow-md">{tier.icon}</span>
+                  {tier.popular && (
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono-code font-bold bg-emerald-500 text-slate-950 shadow-[0_0_10px_rgba(52,211,153,0.4)]">
+                      POPULAR
+                    </span>
+                  )}
+                </div>
+
+                <h4 className="font-extrabold text-white text-lg tracking-wide">{tier.name}</h4>
+                <p className="text-xs text-emerald-400/80 font-mono-code mt-1 font-bold">{tier.tag}</p>
+
+                <div className="my-6 pt-5 border-t border-white/[0.08]">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-extrabold font-mono-code text-white group-hover:text-emerald-400 transition-colors">${tier.price.toFixed(2)}</span>
+                    <span className="text-xs text-slate-400 font-mono-code">/mo</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playPop();
+                    setRamGB(tier.ram);
+                    window.scrollTo({ top: document.querySelector('#pricing')?.getBoundingClientRect().top! + window.scrollY - 100, behavior: 'smooth' });
+                  }}
+                  className={`w-full py-3 rounded-xl font-mono-code text-sm font-bold transition-all cursor-pointer ${
+                    tier.popular
+                      ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-[0_0_15px_rgba(52,211,153,0.3)]'
+                      : 'bg-slate-800 hover:bg-emerald-500 text-white hover:text-slate-950 border border-white/5 hover:border-transparent'
+                  }`}
+                >
+                  Select {tier.ram} GB
+                </button>
               </div>
-
-              <h4 className="font-bold text-white text-base">{tier.name}</h4>
-              <p className="text-xs text-slate-400 font-mono-code mt-0.5">{tier.tag}</p>
-
-              <div className="my-4 pt-3 border-t border-white/[0.08]">
-                <span className="text-2xl font-extrabold font-mono-code text-white">${tier.price.toFixed(2)}</span>
-                <span className="text-xs text-slate-400 font-mono-code">/mo</span>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => {
-                  soundManager.playPop();
-                  setRamGB(tier.ram);
-                  window.scrollTo({ top: document.querySelector('#pricing')?.getBoundingClientRect().top! + window.scrollY - 80, behavior: 'smooth' });
-                }}
-                className="w-full py-2.5 rounded-xl glass-panel hover:bg-emerald-500 hover:text-slate-950 text-slate-200 font-mono-code text-xs font-bold transition-all cursor-pointer"
-              >
-                Select {tier.ram} GB
-              </button>
             </motion.div>
           ))}
         </div>
@@ -347,4 +376,3 @@ export const PricingCalculator: React.FC<Props> = ({ onSelectPlan }) => {
     </section>
   );
 };
-

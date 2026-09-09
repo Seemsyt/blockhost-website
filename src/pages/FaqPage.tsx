@@ -68,7 +68,7 @@ export const FaqPage: React.FC = () => {
                 <ol className="list-decimal list-inside space-y-2 text-slate-300 font-sans leading-relaxed">
                   <li>Launch Minecraft Java Edition (Version 1.8 to 1.21.4).</li>
                   <li>Click <strong>Multiplayer</strong> &rarr; <strong>Add Server</strong>.</li>
-                  <li>In <strong>Server Address</strong>, enter your BlockHost server address (e.g. <code className="text-emerald-400 bg-slate-900 px-1.5 py-0.5 rounded">myserver.blockhost.gg:25565</code>).</li>
+                  <li>In <strong>Server Address</strong>, enter your Erex server address (e.g. <code className="text-emerald-400 bg-slate-900 px-1.5 py-0.5 rounded">myserver.erex.gg:25565</code>).</li>
                   <li>Click <strong>Done</strong>, select the server, and tap <strong>Join Server</strong>.</li>
                 </ol>
               </div>
@@ -82,7 +82,7 @@ export const FaqPage: React.FC = () => {
                   <li>Tap <strong>Play</strong> &rarr; <strong>Servers</strong> tab.</li>
                   <li>Scroll to bottom and tap <strong>Add Server</strong>.</li>
                   <li>Set <strong>Server Name</strong> to anything you like.</li>
-                  <li>Set <strong>Server Address</strong> to <code className="text-emerald-400 bg-slate-900 px-1.5 py-0.5 rounded">myserver.blockhost.gg</code> and <strong>Port</strong> to <code className="text-emerald-400 bg-slate-900 px-1.5 py-0.5 rounded">19132</code>.</li>
+                  <li>Set <strong>Server Address</strong> to <code className="text-emerald-400 bg-slate-900 px-1.5 py-0.5 rounded">myserver.erex.gg</code> and <strong>Port</strong> to <code className="text-emerald-400 bg-slate-900 px-1.5 py-0.5 rounded">19132</code>.</li>
                   <li>Tap <strong>Save</strong> and tap <strong>Join</strong>.</li>
                 </ol>
               </div>
@@ -117,7 +117,7 @@ export const FaqPage: React.FC = () => {
 
           <div className="flex justify-center gap-3 pt-2">
             <a
-              href="mailto:support@blockhost.gg"
+              href="mailto:support@erex.gg"
               className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-mono-code flex items-center gap-2"
             >
               <Mail className="w-4 h-4 text-emerald-400" />

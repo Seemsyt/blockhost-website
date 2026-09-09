@@ -99,7 +99,7 @@ export const LiveConsolePage: React.FC<Props> = ({ onOpenDeployWizard }) => {
         setCrashDiagnosis({
           severity: 'warning',
           cause: 'Missing core dependency plugin (Vault Economy API).',
-          fix: 'Install the Vault plugin with 1-click in the BlockHost Mod Browser tab.'
+          fix: 'Install the Vault plugin with 1-click in the Erex Mod Browser tab.'
         });
       } else {
         setCrashDiagnosis({

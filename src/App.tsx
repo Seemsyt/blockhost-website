@@ -21,6 +21,8 @@ import { PricingPage } from './pages/PricingPage';
 import { DatacentersPage } from './pages/DatacentersPage';
 import { FaqPage } from './pages/FaqPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { PrivacyPage } from './pages/PrivacyPage';
+import { TermsPage } from './pages/TermsPage';
 
 // Dashboard Routes
 import { DashboardLayout } from './components/DashboardLayout';
@@ -35,6 +37,10 @@ import { ServerBackupsPage } from './pages/server/ServerBackupsPage';
 import { ServerPlayersPage } from './pages/server/ServerPlayersPage';
 import { ServerPropertiesPage } from './pages/server/ServerPropertiesPage';
 import { SettingsPage } from './pages/SettingsPage';
+
+// Admin Routes
+import { AdminLayout } from './components/AdminLayout';
+import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 
 const MarketingLayout = ({ 
   deployWizardOpen, setDeployWizardOpen, 
@@ -60,6 +66,8 @@ const MarketingLayout = ({
           <Route path="/pricing" element={<PricingPage onSelectPlan={handleSelectPlan} onOpenDeployWizard={() => setDeployWizardOpen(true)} />} />
           <Route path="/network" element={<DatacentersPage onOpenDeployWizard={() => setDeployWizardOpen(true)} />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BookPageTransition>
@@ -115,6 +123,11 @@ export default function App() {
               <Route path="backups" element={<ServerBackupsPage />} />
               <Route path="properties" element={<ServerPropertiesPage />} />
             </Route>
+          </Route>
+
+          {/* Protected Admin Dashboard */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardPage />} />
           </Route>
           
           {/* Marketing Website Catch-All */}

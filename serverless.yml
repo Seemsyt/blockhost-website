@@ -1,0 +1,14 @@
+service: blockhost-website
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    NODE_ENV: production
+
+functions:
+  app:
+    handler: server.handler
+    events:
+      - httpApi: '*'

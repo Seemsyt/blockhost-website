@@ -50,7 +50,7 @@ export const MobileAppPage: React.FC<Props> = ({
     <div className="min-h-screen bg-[#090d16] text-slate-100">
       {/* Route Header */}
       <PageHeader
-        badge="BlockHost Mobile App v3.5"
+        badge="Erex Mobile App v3.5"
         badgeIcon={<Smartphone className="w-3.5 h-3.5" />}
         title="Your Entire Minecraft Server Cloud"
         highlightedTitle="In Your Pocket."
@@ -134,7 +134,7 @@ export const MobileAppPage: React.FC<Props> = ({
                       <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center text-xs text-black font-black">
                         BH
                       </div>
-                      <span className="font-bold text-xs text-white">BlockHost</span>
+                      <span className="font-bold text-xs text-white">Erex</span>
                       <span className="text-[10px] font-mono-code text-slate-400">• {alertDemos[activeAlert].time}</span>
                     </div>
 
@@ -176,7 +176,7 @@ export const MobileAppPage: React.FC<Props> = ({
           <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
             <h2 className="text-3xl font-extrabold text-white">Engineered Specifically For Mobile Administering</h2>
             <p className="text-slate-300 text-sm">
-              Standard web panels are clunky on touchscreen phones. BlockHost was built from the ground up with native gestures, zero battery drain, and offline queueing.
+              Standard web panels are clunky on touchscreen phones. Erex was built from the ground up with native gestures, zero battery drain, and offline queueing.
             </p>
           </div>
 
@@ -227,7 +227,7 @@ export const MobileAppPage: React.FC<Props> = ({
       {/* Download CTA */}
       <section className="py-16 bg-[#070a12] border-t border-slate-800/80">
         <div className="max-w-4xl mx-auto px-4 text-center space-y-6">
-          <h2 className="text-3xl font-extrabold text-white">Download BlockHost for iOS & Android Today</h2>
+          <h2 className="text-3xl font-extrabold text-white">Download Erex for iOS & Android Today</h2>
           <p className="text-slate-300 text-sm">
             Join over 48,000 server creators who run their worlds seamlessly on their phones.
           </p>
